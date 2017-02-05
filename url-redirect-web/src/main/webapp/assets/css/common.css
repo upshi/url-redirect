@@ -1,0 +1,43 @@
+body {
+    font-family: '微软雅黑', 'Times New Roman', Times, serif;
+}
+
+.navbar-default {
+    background-color: white;
+}
+
+.container-fluid {
+    margin: 0px auto;
+}
+
+.content {
+    margin: 0px auto;
+}
+
+.navbar-default {
+    background-color: white;
+}
+
+#left {
+    float: left;
+    min-height: 900px;
+}
+
+#right {
+    float: left;
+}
+
+#footer {
+    color : white;
+    clear: both;
+    background-color: #2b2b2b;
+    height : 50px;
+}
+
+.listLabel {
+    width: 20%;
+    height: 30px;
+    margin: 10px 10px;
+}
+
+

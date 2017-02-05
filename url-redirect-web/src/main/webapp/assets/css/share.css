@@ -1,0 +1,32 @@
+/* 用户管理样式 */
+.addUserBtn {
+    width: 393px;
+}
+
+.personInfo {
+    border-bottom: 1px solid #ccc;
+    height: 50px;
+    line-height: 50px;
+    width: 300px;
+    margin: 0 auto;
+}
+.infoBox {
+    width:90%;
+    margin: 0 auto;
+}
+.infoBox label {
+    font-weight: normal;
+    padding-left: 10px;
+}
+
+.personInfoBtn {
+    width: 300px;
+    margin-top: 20px;
+}
+
+.w2 {
+    letter-spacing: 0.2em;
+}
+.changePwBtn {
+    width: 254px;
+}

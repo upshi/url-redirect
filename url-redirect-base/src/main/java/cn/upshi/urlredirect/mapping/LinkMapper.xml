@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.upshi.urlredirect.dao.LinkDao">
+    <resultMap id="BaseResultMap" type="cn.upshi.urlredirect.model.Link">
+        <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    uuid, name, code, url, time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from link
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from link
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="cn.upshi.urlredirect.model.Link">
+    insert into link (uuid, name, code, 
+      url, time)
+    values (#{uuid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.upshi.urlredirect.model.Link">
+        insert into link
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.upshi.urlredirect.model.Link">
+        update link
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.upshi.urlredirect.model.Link">
+    update link
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

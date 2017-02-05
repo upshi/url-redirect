@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.upshi.urlredirect.dao.UserDao">
+    <resultMap id="BaseResultMap" type="cn.upshi.urlredirect.model.User">
+        <id column="userid" property="userid" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="dept" property="dept" jdbcType="VARCHAR"/>
+        <result column="tel" property="tel" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="role" property="role" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+  <sql id="Base_Column_List">
+    userid, password, name, dept, tel, email, role, status
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByIdPwd" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where userid = #{param1,jdbcType=VARCHAR} and password = #{param2,jdbcType=VARCHAR}
+  </select>
+
+  <select id="search" resultType="cn.upshi.urlredirect.model.User" parameterType="cn.upshi.urlredirect.dto.UserDTO">
+        select
+        userid, name, dept, tel, email, role, status
+        from user
+        where 1=1
+        <if test="userid != null and userid != '' ">
+            and userid like CONCAT('%', #{userid},'%' )
+        </if>
+        <if test="name != null and name != '' ">
+            and name like CONCAT('%', #{name},'%' )
+        </if>
+        <if test="dept != null and dept != '' ">
+            and dept like CONCAT('%', #{dept},'%' )
+        </if>
+        <if test="tel != null and tel != '' ">
+            and tel like CONCAT('%', #{tel},'%' )
+        </if>
+        <if test="email != null and email != '' ">
+            and email like CONCAT('%', #{email},'%' )
+        </if>
+        <if test="role != null ">
+            and role = #{role}
+        </if>
+        <if test="status != null ">
+            and status = #{status}
+        </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="cn.upshi.urlredirect.model.User">
+    insert into user (userid, password, name, 
+      dept, tel, email, role, 
+      status)
+    values (#{userid,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{dept,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+
+  <insert id="insertSelective" parameterType="cn.upshi.urlredirect.model.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userid != null">
+                userid,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="dept != null">
+                dept,
+            </if>
+            <if test="tel != null">
+                tel,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="role != null">
+                role,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userid != null">
+                #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="dept != null">
+                #{dept,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                #{role,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+        </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.upshi.urlredirect.model.User">
+        update user
+        <set>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="dept != null">
+                dept = #{dept,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                role = #{role,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="cn.upshi.urlredirect.model.User">
+    update user
+    set password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      dept = #{dept,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

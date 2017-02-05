@@ -1,0 +1,56 @@
+<div class="panel panel-success">
+    <div class="panel-heading">个人信息</div>
+    <div class="panel-body" ng-init="init()">
+        <form role="form">
+            <h3 class="text-center"><span class="glyphicon glyphicon-user">个人信息</span></h3><br/>
+            <div class="form-group personInfo">
+                <div class="infoBox">
+                    <label>用户名：</label>
+                    <label>{{ user.userid }}</label>
+                </div>
+            </div>
+            <div class="form-group personInfo">
+                <div class="infoBox">
+                    <label class="w2">姓</label><label>名：</label>
+                    <label>{{ user.name }}</label>
+                </div>
+            </div>
+            <div class="form-group personInfo">
+                <div class="infoBox">
+                    <label class="w2">部</label><label>门：</label>
+                    <label>{{ user.dept }}</label>
+                </div>
+            </div>
+            <div class="form-group personInfo">
+                <div class="infoBox">
+                    <label>手机号：</label>
+                    <label>{{ user.tel }}</label>
+                </div>
+            </div>
+            <div class="form-group personInfo">
+                <div class="infoBox">
+                    <label class="w2">邮</label><label>箱：</label>
+                    <label>{{ user.email }}</label>
+                </div>
+            </div>
+            <div class="form-group personInfo">
+                <div class="infoBox">
+                    <label class="w2">余</label><label>额：</label>
+                    <label>{{ user.balance}}</label>
+                </div>
+            </div>
+            <div class="form-group personInfo">
+                <div class="infoBox">
+                    <label class="w2">角</label><label>色：</label>
+                    <label ng-if="user.role == 0">学生</label>
+                    <label ng-if="user.role == 1">教职工</label>
+                    <label ng-if="user.role == 2">临时用户</label>
+                    <label ng-if="user.role == 3">管理员</label>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-success personInfoBtn">编&nbsp;&nbsp;&nbsp;&nbsp;辑</button>
+            </div>
+        </form>
+    </div>
+</div>
