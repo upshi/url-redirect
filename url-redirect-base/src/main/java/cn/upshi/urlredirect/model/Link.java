@@ -12,6 +12,7 @@ public class Link {
     private String name;
     private String code;
     private String url;
+    private String time;
 
     public Link() {
     }
@@ -48,6 +49,14 @@ public class Link {
         this.url = url;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "Link{" +
@@ -55,6 +64,7 @@ public class Link {
                 ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", url='" + url + '\'' +
+                ", time='" + time + '\'' +
                 '}';
     }
 }

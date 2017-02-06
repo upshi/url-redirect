@@ -14,4 +14,6 @@ public interface LinkDao {
     int updateByPrimaryKeySelective(Link record);
 
     int updateByPrimaryKey(Link record);
+
+    Link selectByCode(String code);
 }

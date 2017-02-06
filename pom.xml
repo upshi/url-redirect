@@ -16,7 +16,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <spring.version>4.2.6.RELEASE</spring.version>
+        <spring.version>4.3.6.RELEASE</spring.version>
         <mybatis.version>3.2.8</mybatis.version>
         <mybatis.spring.version>1.2.2</mybatis.spring.version>
         <mybatis.pagehelper.version>4.1.4</mybatis.pagehelper.version>
@@ -68,6 +68,13 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!-- spring-aspects -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
                 <version>${spring.version}</version>
             </dependency>
 

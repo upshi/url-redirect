@@ -1,0 +1,1 @@
+var adminService = angular.module('indexService', []);

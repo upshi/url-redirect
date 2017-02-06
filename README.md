@@ -1,1 +1,1 @@
-# URL-REDIRECT 短连接跳转
+# URL-REDIRECT 短链接跳转

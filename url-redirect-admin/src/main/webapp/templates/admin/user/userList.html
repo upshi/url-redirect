@@ -1,0 +1,288 @@
+<div class="panel panel-success">
+    <div class="panel-heading">用户管理</div>
+    <div class="panel-body" ng-init="init()">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>用户ID:</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="用户ID"
+                           ng-model="searchParam.userid" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>姓名:</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="姓名"
+                           ng-model="searchParam.name" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>班级/部门:</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="班级/部门"
+                           ng-model="searchParam.dept" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>手机号:</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="手机号"
+                           ng-model="searchParam.tel" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>角色:</label>
+                    <select class="form-control" ng-model="searchParam.role" >
+                        <option></option>
+                        <option value="0">普通用户</option>
+                        <option value="1">管理员</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>状态:</label>
+                    <select class="form-control" ng-model="searchParam.role" >
+                        <option></option>
+                        <option value="-1">删除</option>
+                        <option value="0">禁用</option>
+                        <option value="1">正常</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>邮箱:</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="邮箱"
+                           ng-model="searchParam.email" />
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <button type="button" ng-click="search()" class="btn btn-primary">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+            </div>
+            <div class="col-md-1">
+                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <button type="button" ng-click="clear()" class="btn btn-primary">清&nbsp;&nbsp;&nbsp;&nbsp;空</button>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>用户名</th>
+                    <th>姓名</th>
+                    <th>部门</th>
+                    <th>手机</th>
+                    <th>邮箱</th>
+                    <th>余额</th>
+                    <th>角色</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="u in users">
+                    <td>{{ (currentPage-1)*pageSize + $index + 1 }}</td>
+                    <td>{{ u.userid }}</td>
+                    <td>{{ u.name }}</td>
+                    <td>{{ u.dept }}</td>
+                    <td>{{ u.tel }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.balance }}</td>
+                    <td>
+                        <p ng-if="u.role === 0">普通用户</p>
+                        <p ng-if="u.role === 1">管理员</p>
+                    <td>
+                        <p ng-if="u.status === -1">删除</p>
+                        <p ng-if="u.status === 0">禁用</p>
+                        <p ng-if="u.status === 1">正常</p>
+                    </td>
+                    <td>
+                        <!-- Single button -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                操作<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-if="u.status !== -1" ng-click="modify(u)"><a href="javascript:void(0)">编辑</a></li>
+                                <li ng-if="u.status === 0" ng-click="modifyStatus(u.userid, 1)"><a href="javascript:void(0)">启用</a></li>
+                                <li ng-if="u.status === 1" ng-click="modifyStatus(u.userid, 0)"><a href="javascript:void(0)">禁用</a></li>
+                                <li ng-if="u.status !== -1" ng-click="modifyStatus(u.userid, -1)"><a href="javascript:void(0)">删除</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center" ng-show="totals > pageSize">
+            <ul uib-pagination
+                boundary-links="true"
+                total-items="totals"
+                ng-model="currentPage"
+                items-per-page="pageSize"
+                class="pagination-sm"
+                previous-text="&lsaquo;"
+                next-text="&rsaquo;"
+                first-text="&laquo;"
+                last-text="&raquo;"
+                max-size="maxSize"
+                ng-change="pageChanged()">
+            </ul>
+        </div>
+
+        <div ng-show="users.length !== 0">
+            总条数: {{totals}} - 总页数: {{pages}} 页 - 当前页:第 {{currentPage}} 页 - 每页条数:
+            <select ng-model="pageSize">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div id="modifyUser" style="display: none">
+    <form class="form-horizontal" name="addUserForm" role="form" ng-submit="addUser()">
+        <div class="form-group">
+            <label class="control-label col-sm-3 text-right">用户名</label>
+            <div class="col-sm-6"
+                 ng-class="{'has-error': addUserForm.userName.$invalid && addUserForm.userName.$touched}">
+                <input type="text"
+                       class="form-control"
+                       name="userName"
+                       required
+                       ng-model="user.userName"
+                       ng-blur="checkUserName()"
+                       ng-minlength="4"
+                       ng-maxlength="16"
+                       placeholder="请输入用户名">
+            </div>
+            <p class="error" ng-if="addUserForm.userName.$error.required && addUserForm.userName.$touched">
+                请输入用户名
+            </p>
+            <p class="error" ng-if="newUser.error">
+                {{newUser.msg}}
+            </p>
+            <p class="error" ng-if="addUserForm.userName.$error.minlength || addUserForm.userName.$error.maxlength">
+                用户名长度为4-16位哦
+            </p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 text-right">姓名</label>
+            <div class="col-sm-6"
+                 ng-class="{'has-error': addUserForm.name.$invalid && addUserForm.name.$touched}">
+                <input type="text"
+                       class="form-control"
+                       name="name"
+                       required
+                       ng-model="user.name"
+                       placeholder="请输入姓名">
+            </div>
+            <p class="error" ng-if="addUserForm.name.$error.required && addUserForm.name.$touched">
+                请输入姓名
+            </p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 text-right">密码</label>
+            <div class="col-sm-6"
+                 ng-class="{'has-error': addUserForm.password.$invalid && addUserForm.password.$touched}">
+                <input type="password"
+                       class="form-control"
+                       name="password"
+                       required
+                       ng-minlength="6"
+                       ng-maxlength="20"
+                       ng-model="user.password"
+                       placeholder="请输入密码">
+            </div>
+            <p class="error" ng-if="addUserForm.password.$error.required && addUserForm.password.$touched">
+                请输入密码
+            </p>
+            <p class="error" ng-if="addUserForm.password.$error.minlength || addUserForm.password.$error.maxlength">
+                密码长度为6-20位哦
+            </p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 text-right">手机号</label>
+            <div class="col-sm-6"
+                 ng-class="{'has-error': addUserForm.tel.$invalid && addUserForm.tel.$touched}">
+                <input type="text"
+                       class="form-control"
+                       name="tel"
+                       ng-model="user.tel"
+                       ng-pattern="/^1[3|4|5|7|8]\d{9}$/"
+                       placeholder="请输入手机号">
+            </div>
+            <p class="error" ng-if="addUserForm.tel.$error.pattern && addUserForm.tel.$touched">
+                您输入的手机号格式不正确
+            </p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 text-right">邮箱</label>
+            <div class="col-sm-6"
+                 ng-class="{'has-error': addUserForm.email.$invalid && addUserForm.email.$touched}">
+                <input type="email"
+                       class="form-control"
+                       name="email"
+                       required
+                       ng-model="user.email"
+                       placeholder="请输入邮箱">
+            </div>
+            <p class="error" ng-if="addUserForm.email.$error.required && addUserForm.email.$touched">
+                请输入邮箱
+            </p>
+            <p class="error" ng-if="addUserForm.email.$error.email">
+                您输入的邮箱格式不正确
+            </p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 text-right">部门</label>
+            <div class="col-sm-3">
+                <select class="form-control" required ng-model="user.deptName" ng-options="dept.name as dept.name for dept in depts | filterAllDept">
+                    <option value="">--请选择--</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <select ng-show="user.deptName" class="form-control" ng-model="user.office" ng-options="dept.office as dept.office for dept in depts | filterOffice : user.deptName">
+                    <option value="">--请选择--</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 text-right">角色</label>
+            <div class="col-sm-6">
+                <select class="form-control" ng-model="user.role">
+                    <option value="1">学院老师</option>
+                    <option value="0">部门老师</option>
+                    <option value="2">管理员</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="text-center">
+                <button type="submit" ng-disabled="addUserForm.$invalid" class="btn btn-success addUserBtn">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

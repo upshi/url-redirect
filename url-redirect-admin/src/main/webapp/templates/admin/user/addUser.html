@@ -1,0 +1,124 @@
+<div class="panel panel-success">
+    <div class="panel-heading">添加用户</div>
+    <div class="panel-body"><br>
+        <form class="form-horizontal" name="addUserForm" role="form" ng-submit="addUser()">
+            <div class="form-group">
+                <label class="control-label col-sm-3 text-right">用户名</label>
+                <div class="col-sm-6"
+                     ng-class="{'has-error': addUserForm.userid.$invalid && addUserForm.userid.$touched}">
+                    <input type="text"
+                           class="form-control"
+                           name="userid"
+                           required
+                           ng-model="user.userid"
+                           ng-blur="checkUserid()"
+                           ng-minlength="4"
+                           ng-maxlength="16"
+                           placeholder="请输入用户名">
+                </div>
+                <p class="error" ng-if="addUserForm.userid.$error.required && addUserForm.userid.$touched">
+                    请输入用户名
+                </p>
+                <p class="error" ng-if="newUser.error">
+                    {{newUser.msg}}
+                </p>
+                <p class="error" ng-if="addUserForm.userid.$error.minlength || addUserForm.userid.$error.maxlength">
+                    用户名长度为4-16位哦
+                </p>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 text-right">姓名</label>
+                <div class="col-sm-6"
+                     ng-class="{'has-error': addUserForm.name.$invalid && addUserForm.name.$touched}">
+                    <input type="text"
+                           class="form-control"
+                           name="name"
+                           required
+                           ng-model="user.name"
+                           placeholder="请输入姓名">
+                </div>
+                <p class="error" ng-if="addUserForm.name.$error.required && addUserForm.name.$touched">
+                    请输入姓名
+                </p>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 text-right">密码</label>
+                <div class="col-sm-6"
+                     ng-class="{'has-error': addUserForm.password.$invalid && addUserForm.password.$touched}">
+                    <input type="password"
+                           class="form-control"
+                           name="password"
+                           required
+                           ng-minlength="6"
+                           ng-maxlength="20"
+                           ng-model="user.password"
+                           placeholder="请输入密码">
+                </div>
+                <p class="error" ng-if="addUserForm.password.$error.required && addUserForm.password.$touched">
+                    请输入密码
+                </p>
+                <p class="error" ng-if="addUserForm.password.$error.minlength || addUserForm.password.$error.maxlength">
+                    密码长度为6-20位哦
+                </p>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 text-right">手机号</label>
+                <div class="col-sm-6"
+                     ng-class="{'has-error': addUserForm.tel.$invalid && addUserForm.tel.$touched}">
+                    <input type="text"
+                           class="form-control"
+                           name="tel"
+                           ng-model="user.tel"
+                           ng-pattern="/^1[3|4|5|7|8]\d{9}$/"
+                           placeholder="请输入手机号">
+                </div>
+                <p class="error" ng-if="addUserForm.tel.$error.pattern && addUserForm.tel.$touched">
+                   您输入的手机号格式不正确
+                </p>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 text-right">邮箱</label>
+                <div class="col-sm-6"
+                     ng-class="{'has-error': addUserForm.email.$invalid && addUserForm.email.$touched}">
+                    <input type="email"
+                           class="form-control"
+                           name="email"
+                           ng-model="user.email"
+                           placeholder="请输入邮箱">
+                </div>
+                <p class="error" ng-if="addUserForm.email.$error.email">
+                   您输入的邮箱格式不正确
+                </p>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 text-right">部门</label>
+                <div class="col-sm-6"
+                     ng-class="{'has-error': addUserForm.dept.$invalid && addUserForm.dept.$touched}">
+                    <input type="text"
+                           class="form-control"
+                           name="dept"
+                           required
+                           ng-model="user.dept"
+                           placeholder="请输入部门">
+                </div>
+                <p class="error" ng-if="addUserForm.dept.$error.required && addUserForm.dept.$touched">
+                    请输入部门
+                </p>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 text-right">角色</label>
+                <div class="col-sm-6">
+                    <select class="form-control" ng-model="user.role">
+                        <option value="0">学生</option>
+                        <option value="1">管理员</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit" ng-disabled="addUserForm.$invalid" class="btn btn-success addUserBtn">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

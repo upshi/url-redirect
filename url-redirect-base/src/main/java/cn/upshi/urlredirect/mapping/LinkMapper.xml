@@ -11,23 +11,34 @@
     <sql id="Base_Column_List">
     uuid, name, code, url, time
   </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
         from link
         where uuid = #{uuid,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  </select>
+
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from link
+        where code = #{code,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from link
     where uuid = #{uuid,jdbcType=VARCHAR}
   </delete>
-    <insert id="insert" parameterType="cn.upshi.urlredirect.model.Link">
+
+  <insert id="insert" parameterType="cn.upshi.urlredirect.model.Link">
     insert into link (uuid, name, code, 
       url, time)
     values (#{uuid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="cn.upshi.urlredirect.model.Link">
+
+  <insert id="insertSelective" parameterType="cn.upshi.urlredirect.model.Link">
         insert into link
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="uuid != null">
@@ -63,8 +74,9 @@
                 #{time,jdbcType=VARCHAR},
             </if>
         </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="cn.upshi.urlredirect.model.Link">
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.upshi.urlredirect.model.Link">
         update link
         <set>
             <if test="name != null">
@@ -81,8 +93,9 @@
             </if>
         </set>
         where uuid = #{uuid,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="cn.upshi.urlredirect.model.Link">
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="cn.upshi.urlredirect.model.Link">
     update link
     set name = #{name,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},

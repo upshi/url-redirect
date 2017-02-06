@@ -15,6 +15,7 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
+
         <dependency>
             <groupId>cn.upshi</groupId>
             <artifactId>url-redirect-base</artifactId>
