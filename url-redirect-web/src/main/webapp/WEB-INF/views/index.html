@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>短链接系统</title>
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
     <link rel="stylesheet" href="assets/lib/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="assets/lib/datapicker/daterangepicker-bs3.css">
     <link rel="stylesheet" href="assets/css/common.css">
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/share.css">
-    <script src="assets/lib/jquery/jquery.js"></script>
+    <script src="assets/lib/jquery/jquery-2.1.3.min.js"></script>
+
 </head>
 
-<body ng-app="app" ng-controller="mainController">
+<body ng-app="app" ng-controller="mainController" ng-init="init()">
 
 <div class="content">
     <div class="col-md-2"></div>
@@ -28,7 +29,7 @@
                             <input type="text"
                                    class="form-control"
                                    placeholder="http://"
-                                   ng-model="searchParam.userid"/>
+                                   ng-model="longurl"/>
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -44,11 +45,9 @@
                         </h3>
                     </p>
                     <br>
-                    <p class="text-center">
-                        <img style="text-align: center"
-                             src="http://dwz.cn/static/i18n/zh-CN/shorturl/base/img/logo_8522ee4c.png"/>
-                    </p>
-
+                    <div class="text-center">
+                        <div id="qrcode"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,16 +57,11 @@
 
 <script src="assets/lib/bootstrap/bootstrap.js"></script>
 <script src="assets/lib/jquery/jquery.base64.js"></script>
-<script src="assets/lib/angular/angular.js"></script>
-<script src="assets/lib/angular/angular-ui-router.js"></script>
-<script src="assets/lib/angular/ui-bootstrap-tpls-2.1.3.js"></script>
-<script src="assets/lib/angular/ng-file-upload-all.min.js"></script>
+<script src="assets/lib/angular/angular.min.js"></script>
 <script src="assets/lib/layer/layer.js"></script>
-<script src="assets/lib/datapicker/moment.js"></script>
-<script src="assets/lib/datapicker/daterangepicker.js"></script>
+<script src="assets/lib/qrcode/qrcode.min.js"></script>
 <script src="assets/js/index/app.js"></script>
 <script src="assets/js/index/controller.js"></script>
-<script src="assets/js/nav.js"></script>
 <script src="assets/js/common/common.js"></script>
 
 </body>

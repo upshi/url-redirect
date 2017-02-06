@@ -16,4 +16,6 @@ public interface LinkDao {
     int updateByPrimaryKey(Link record);
 
     Link selectByCode(String code);
+
+    Link selectByUrl(String longUrl);
 }

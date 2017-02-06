@@ -1,1 +1,1 @@
-var app = angular.module('app', ['ui.router','ui.bootstrap','ngFileUpload','indexController','nav']);
+var app = angular.module('app', ['indexController']);

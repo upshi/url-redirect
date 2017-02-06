@@ -1,79 +1,36 @@
 var indexController = angular.module('indexController', []);
 
 indexController.controller('mainController', ['$scope', '$http', '$httpParamSerializerJQLike', function ($scope, $http, $httpParamSerializerJQLike) {
-    $scope.currentPage = 1;
-    $scope.maxSize = 10;
-    $scope.pageSize = 10;
 
-    $scope.searchParam = {
-        name : '',
-        type :'',
-        startTime : '',
-        endTime : ''
-    }
+    var domain = 'http://upshi.cc/';
 
+    var qrcode = new QRCode("qrcode", {
+        width: 256,
+        height: 256,
+        colorDark : "#E27206",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.M
+    });
 
-    $scope.init = function () {
+    $scope.short = function() {
         $http({
             method: 'POST',
-            url: 'api/doc/search',
-            cache: false
-        }).success(function (data) {
-            $scope.docs = data.data.docs;
-            $scope.totals = data.data.totals;
-            $scope.pages = Math.ceil(data.data.totals / $scope.pageSize);
-        });
-
-        $('#timeRange').daterangepicker({
-            maxDate : nextDate(),
-            locale: {
-                cancelLabel: '清除'
-            }
-        });
-
-        $('#timeRange').on('cancel.daterangepicker', function(ev, picker) {
-            $scope.searchParam.startTime = '';
-            $scope.searchParam.endTime = '';
-            $(this).val('');
-        });
-        $('#timeRange').on('apply.daterangepicker', function(ev, picker) {
-            $scope.searchParam.startTime = picker.startDate.format('YYYY-MM-DD');
-            $scope.searchParam.endTime = picker.endDate.format('YYYY-MM-DD');
-            $(this).val($scope.searchParam.startTime + ' 至 ' + $scope.searchParam.endTime);
-        });
-    };
-
-    $scope.search = function() {
-        $scope.currentPage = 1;
-        $scope.maxSize = 10;
-        $scope.pageSize = 10;
-        doSearch();
-    };
-
-    $scope.pageChanged = function() {
-        doSearch();
-    };
-
-    function doSearch() {
-        $http({
-            method: 'POST',
-            url: 'api/doc/search',
+            url: 'dlj',
             data: $httpParamSerializerJQLike({
-                name: $scope.searchParam.name,
-                type: $scope.searchParam.type,
-                startTime: $scope.searchParam.startTime,
-                endTime: $scope.searchParam.endTime,
-                page: $scope.currentPage,
-                size:$scope.pageSize
+                url : $.base64.encode($scope.longurl)
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             cache: false
         }).success(function (data) {
-            $scope.docs = data.data.docs;
-            $scope.totals = data.data.totals;
-            $scope.pages = Math.ceil(data.data.totals / $scope.pageSize);
+            if(data.success === true) {
+                $scope.code = data.data.code;
+                qrcode.makeCode(domain + $scope.code);
+            } else {
+                layer.msg(data.error, function () {});
+            }
         });
-    }
+    };
+
 }]);

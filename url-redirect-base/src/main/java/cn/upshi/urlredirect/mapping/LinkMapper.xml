@@ -26,6 +26,13 @@
         where code = #{code,jdbcType=VARCHAR}
   </select>
 
+  <select id="selectByUrl" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from link
+        where url = #{url,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from link
     where uuid = #{uuid,jdbcType=VARCHAR}

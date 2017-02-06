@@ -10,5 +10,9 @@ import cn.upshi.urlredirect.model.Link;
 
 public interface ILinkService {
 
-    Link getByCode(String code);
+    Link selectByCode(String code);
+
+    Link selectByUrl(String longUrl);
+
+    String add(String name, String longUrl);
 }
